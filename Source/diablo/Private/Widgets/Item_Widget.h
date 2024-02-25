@@ -14,4 +14,11 @@ class UItem_Widget : public UUserWidget
 {
 	GENERATED_BODY()
 	
+public:
+	// Begin play
+	virtual void NativeConstruct() override;
+
+private:
+
+
 };

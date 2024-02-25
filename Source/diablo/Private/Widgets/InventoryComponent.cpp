@@ -29,3 +29,18 @@ void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 
 }
 
+float UInventoryComponent::GetColumns() const
+{
+	return Columns;
+}
+
+float UInventoryComponent::GetRows() const
+{
+	return Rows;
+}
+
+float UInventoryComponent::GetTileSize() const
+{
+	return TileSize;
+}
+

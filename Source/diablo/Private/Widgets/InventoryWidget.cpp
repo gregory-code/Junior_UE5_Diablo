@@ -2,6 +2,7 @@
 
 
 #include "Widgets/InventoryWidget.h"
+#include "InventoryGridWidget.h"
 
 void UInventoryWidget::NativeConstruct()
 {

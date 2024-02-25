@@ -3,6 +3,7 @@
 
 #include "DiabloPlayerController.h"
 #include "PlayerCharacter.h"
+#include "Kismet/GameplayStatics.h"
 #include "Widgets/InventoryWidget.h"
 
 void ADiabloPlayerController::OnPossess(APawn* NewPawn)
@@ -44,18 +45,12 @@ void ADiabloPlayerController::PostPossessionSetup(APawn* NewPawn)
 		return;
 	}
 
-	//SpawnGameplayUI();
+	SpawnGameplayUI();
 }
 
 void ADiabloPlayerController::SpawnGameplayUI()
 {
 	if (!PlayerCharacter)
-	{
-
-		return;
-	}
-
-	if (!InventoryUI)
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s, missing gameplayUI class"), *GetName());
 		return;
@@ -64,15 +59,30 @@ void ADiabloPlayerController::SpawnGameplayUI()
 	//returns true if it's a player on the local side of you playing
 	if (!IsLocalPlayerController())
 	{
-
 		return;
 	}
 
 	InventoryUI = CreateWidget<UInventoryWidget>(this, InventoryWidgetClass);
+}
 
-	if (InventoryUI)
+void ADiabloPlayerController::ToggleInventory(bool state)
+{
+	if (InventoryUI == nullptr)
 	{
+		UE_LOG(LogTemp, Error, TEXT("%s, missing inventory"), *GetName());
+		return;
+	}
 
+	UGameplayStatics::SetGamePaused(GetWorld(), state);
+	GetWorld()->GetFirstPlayerController()->SetShowMouseCursor(state);
+	GetWorld()->GetFirstPlayerController()->bEnableClickEvents = state;
+
+	if (state)
+	{
 		InventoryUI->AddToViewport();
+	}
+	else
+	{
+		InventoryUI->RemoveFromParent();
 	}
 }

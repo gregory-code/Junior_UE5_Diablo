@@ -4,12 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "CharacterBase.h"
+#include "DiabloPlayerController.h"
 #include "PlayerCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
+class ADiabloPlayerController;
+class UInventoryComponent;
 
 /**
  * 
@@ -24,6 +27,8 @@ protected:
 	
 public:
 	APlayerCharacter();
+	
+	ADiabloPlayerController* MyPlayerController;
 
 private:
 	UPROPERTY(visibleAnywhere, Category = "View")
@@ -31,6 +36,9 @@ private:
 
 	UPROPERTY(visibleAnywhere, Category = "View")
 	UCameraComponent* viewCamera;
+
+	//UPROPERTY(visibleAnywhere, Category = "Inventory")
+	//UInventoryComponent* inventoryComp;
 
 	virtual void PawnClientRestart() override;
 
@@ -52,11 +60,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* inventoryInputAction;
 
-	UPROPERTY(EditDefaultsOnly, Category = "UI")
-	TSubclassOf<class UInventoryWidget> InventoryWidgetClass;
-
-	UPROPERTY()
-	UInventoryWidget* InventoryUI;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 

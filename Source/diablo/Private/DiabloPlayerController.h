@@ -21,6 +21,9 @@ public:
 	// This function calls on both the listening server, and the client
 	virtual void AcknowledgePossession(APawn* NewPawn) override;
 
+	UFUNCTION()
+	void ToggleInventory(bool state);
+
 private:
 	void PostPossessionSetup(APawn* NewPawn);
 

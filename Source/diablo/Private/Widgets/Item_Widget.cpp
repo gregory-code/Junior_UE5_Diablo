@@ -3,3 +3,9 @@
 
 #include "Widgets/Item_Widget.h"
 
+void UItem_Widget::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+
+}

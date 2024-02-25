@@ -17,4 +17,9 @@ class UInventoryWidget : public UUserWidget
 public:
 	// Begin play
 	virtual void NativeConstruct() override;
+
+private:
+
+	UPROPERTY(meta = (BindWidget))
+	class UInventoryGridWidget* WBP_InventoryGrid;
 };

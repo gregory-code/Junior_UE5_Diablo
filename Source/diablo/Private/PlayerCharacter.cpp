@@ -3,11 +3,13 @@
 #include "PlayerCharacter.h"
 #include "GameFramework/SpringArmComponent.h" // have to include headers
 #include "Camera/CameraComponent.h"
+#include "InventoryComponent.generated.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Widgets/InventoryWidget.h"
+#include "DiabloPlayerController.h"
 #include "Blueprint/UserWidget.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -15,6 +17,7 @@ APlayerCharacter::APlayerCharacter()
 {
 	cameraBoom = CreateDefaultSubobject<USpringArmComponent>("Camera Boom");
 	viewCamera = CreateDefaultSubobject<UCameraComponent>("View Camera");
+	//inventoryComp = CreateDefaultSubobject<UInventoryComponent>("Inventory Component"); need the inventory component
 
 	cameraBoom->SetupAttachment(GetRootComponent());
 	viewCamera->SetupAttachment(cameraBoom, USpringArmComponent::SocketName);
@@ -32,10 +35,11 @@ APlayerCharacter::APlayerCharacter()
 
 void APlayerCharacter::BeginPlay()
 {
-	//InventoryUI = CreateWidget<UInventoryWidget>(this, InventoryWidgetClass);
-	//inventoryInputAction->bTriggerWhenPaused = true;
-	//FInputModeGameOnly input;
-	//GetWorld()->GetFirstPlayerController()->SetInputMode(input);
+	Super::BeginPlay();
+
+	inventoryInputAction->bTriggerWhenPaused = true;
+	FInputModeGameOnly input;
+	GetWorld()->GetFirstPlayerController()->SetInputMode(input);
 }
 
 void APlayerCharacter::PawnClientRestart() // Treating this as begin play ???
@@ -82,26 +86,19 @@ void APlayerCharacter::Look(const FInputActionValue& InputValue)
 
 void APlayerCharacter::Inventory()
 {
-	/*if (InventoryUI == nullptr)
+	if (MyPlayerController == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s, missing inventory"), *GetName());
+		MyPlayerController = Cast<ADiabloPlayerController>(GetController());
+	}
+
+	if (MyPlayerController == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s, missing controller"), *GetName());
 		return;
 	}
 
 	bInventory = !bInventory;
-
-	UGameplayStatics::SetGamePaused(GetWorld(), bInventory);
-	GetWorld()->GetFirstPlayerController()->SetShowMouseCursor(bInventory);
-	GetWorld()->GetFirstPlayerController()->bEnableClickEvents = bInventory;
-
-	if (bInventory)
-	{
-		InventoryUI->AddToViewport();
-	}
-	else
-	{
-		InventoryUI->RemoveFromParent();
-	}*/
+	MyPlayerController->ToggleInventory(bInventory);
 }
 
 FVector APlayerCharacter::GetMoveFwdDir() const
