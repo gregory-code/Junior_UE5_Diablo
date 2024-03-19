@@ -2,6 +2,7 @@
 
 
 #include "Widgets/InventoryComponent.h"
+#include "ItemObject.generated.h"
 
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
@@ -22,7 +23,6 @@ void UInventoryComponent::BeginPlay()
 }
 
 
-// Called every frame
 void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
@@ -42,5 +42,10 @@ float UInventoryComponent::GetRows() const
 float UInventoryComponent::GetTileSize() const
 {
 	return TileSize;
+}
+
+bool UInventoryComponent::AddItem(UItemObject* itemToAdd)
+{
+	return true;
 }
 

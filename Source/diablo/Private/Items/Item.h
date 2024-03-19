@@ -6,21 +6,34 @@
 #include "GameFramework/Actor.h"
 #include "Item.generated.h"
 
+class UItemObject;
+
 UCLASS()
 class AItem : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	AItem();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, Category = "Item Detail")
+	class UBoxComponent* PickupBox;
+
+	UPROPERTY(VisibleAnywhere, Category = "Item Detail")
+	class UStaticMeshComponent* PickupMesh;
+
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Item Detail")
+	UItemObject* itemClass;
+
+	UFUNCTION()
+	void CreateDefaultItemObject();
+
+	UFUNCTION(BlueprintCallable, Category = "Pickup")
+	void OnOverlapBegin(AActor* overlappedActor, AActor* otherActor);
 };
