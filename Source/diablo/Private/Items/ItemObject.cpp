@@ -3,3 +3,7 @@
 
 #include "Items/ItemObject.h"
 
+FIntPoint UItemObject::GetSize() const
+{
+	return ItemSize;
+}

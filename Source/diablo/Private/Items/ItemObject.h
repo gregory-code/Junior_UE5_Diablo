@@ -14,4 +14,14 @@ class UItemObject : public UObject
 {
 	GENERATED_BODY()
 	
+private:
+
+	UPROPERTY(EditDefaultsOnly, Category = "Item Details")
+	FIntPoint ItemSize;
+
+public:
+
+	UFUNCTION()
+	FIntPoint GetSize() const;
+
 };

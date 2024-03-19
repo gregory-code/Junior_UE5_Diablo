@@ -22,6 +22,15 @@ void UInventoryComponent::BeginPlay()
 	
 }
 
+FIntPoint UInventoryComponent::GetTileFromIndex(int index)
+{
+	FIntPoint tile;
+	tile.X = index % Columns;
+	tile.Y = index / Columns;
+
+	return tile;
+}
+
 
 void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -44,8 +53,24 @@ float UInventoryComponent::GetTileSize() const
 	return TileSize;
 }
 
+bool UInventoryComponent::bIsSlotAvailable(UItemObject* itemToAdd, int addIndex)
+{
+	return false;
+}
+
 bool UInventoryComponent::AddItem(UItemObject* itemToAdd)
 {
+	if (itemToAdd == nullptr)
+	{
+		return false;
+	}
+
+	for (UItemObject* item : Items)
+	{
+
+	}
+
+
 	return true;
 }
 
