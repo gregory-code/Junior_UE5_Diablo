@@ -26,6 +26,9 @@ protected:
 	virtual void BeginPlay() override;
 
 	FIntPoint GetTileFromIndex(int index);
+	int GetIndexFromTile(FIntPoint tile);
+
+	UItemObject* GetItemAtIndex(int index);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Grid")
 	int Columns;

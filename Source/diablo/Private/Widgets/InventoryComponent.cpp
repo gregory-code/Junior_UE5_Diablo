@@ -2,7 +2,8 @@
 
 
 #include "Widgets/InventoryComponent.h"
-#include "ItemObject.generated.h"
+#include "Items/ItemObject.h"
+
 
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
@@ -31,6 +32,22 @@ FIntPoint UInventoryComponent::GetTileFromIndex(int index)
 	return tile;
 }
 
+int UInventoryComponent::GetIndexFromTile(FIntPoint tile)
+{
+	int index = tile.X + (tile.Y * Columns);
+	return index;
+}
+
+UItemObject* UInventoryComponent::GetItemAtIndex(int index)
+{
+	if (Items[index] == nullptr)
+	{
+		return nullptr;
+	}
+
+	return Items[index];
+}
+
 
 void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -53,9 +70,40 @@ float UInventoryComponent::GetTileSize() const
 	return TileSize;
 }
 
-bool UInventoryComponent::bIsSlotAvailable(UItemObject* itemToAdd, int addIndex)
+bool UInventoryComponent::bIsSlotAvailable(UItemObject* itemToAdd, int addIndex) // starts as the top left
 {
-	return false;
+	FIntPoint tile = GetTileFromIndex(addIndex);
+	
+	int dimensionsX = tile.X + (itemToAdd->GetSize().X - 1);
+	int dimensionsY = tile.Y + (itemToAdd->GetSize().Y - 1);
+
+	for (int i = tile.X; i < dimensionsX; i++)
+	{
+		for (int j = tile.Y; j < dimensionsY; j++)
+		{
+			FIntPoint check = FIntPoint(i, j);
+			if (check.X >= 0 && check.Y >= 0 && check.X < Columns && check.Y < Rows)
+			{
+				int index = GetIndexFromTile(check);
+				UItemObject* checkItem = GetItemAtIndex(index);
+				if (checkItem == nullptr)
+				{
+					return false;
+				}
+				else
+				{
+					//Look to see if the item is occupied or not, or if it's an empty slot
+					//Call a function from checkItem
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
 }
 
 bool UInventoryComponent::AddItem(UItemObject* itemToAdd)
@@ -65,12 +113,11 @@ bool UInventoryComponent::AddItem(UItemObject* itemToAdd)
 		return false;
 	}
 
-	for (UItemObject* item : Items)
+	for (int i = 0; i < Items.Num(); i++)
 	{
-
+		return bIsSlotAvailable(itemToAdd, i);
 	}
 
-
-	return true;
+	return false;
 }
 
