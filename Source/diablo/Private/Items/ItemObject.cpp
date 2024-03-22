@@ -7,3 +7,8 @@ FIntPoint UItemObject::GetSize() const
 {
 	return ItemSize;
 }
+
+void UItemObject::SetSize(int x, int y)
+{
+	ItemSize = FIntPoint(x, y);
+}

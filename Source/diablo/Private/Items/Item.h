@@ -29,10 +29,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Item Detail")
-	UItemObject* itemClass;
+	TSubclassOf<UItemObject> itemClass;
+
+	UPROPERTY(VisibleAnywhere, Category = "Item Detail")
+	UItemObject* myItem;
 
 	UFUNCTION()
-	void CreateDefaultItemObject();
+	virtual void CreateDefaultItemObject();
 
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
 	void OnOverlapBegin(AActor* overlappedActor, AActor* otherActor);

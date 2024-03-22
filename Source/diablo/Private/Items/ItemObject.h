@@ -24,4 +24,6 @@ public:
 	UFUNCTION()
 	FIntPoint GetSize() const;
 
+	UFUNCTION()
+	void SetSize(int x, int y);
 };

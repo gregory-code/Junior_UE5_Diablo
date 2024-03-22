@@ -6,6 +6,7 @@
 #include "PlayerCharacter.h"
 #include "Widgets/InventoryComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "ItemObject.generated.h"
 
 // Sets default values
 AItem::AItem()
@@ -41,7 +42,7 @@ void AItem::Tick(float DeltaTime)
 
 void AItem::CreateDefaultItemObject()
 {
-
+	//myItem = NewObject<UItemObject>(this, itemClass);
 }
 
 void AItem::OnOverlapBegin(AActor* overlappedActor, AActor* otherActor)
@@ -56,7 +57,7 @@ void AItem::OnOverlapBegin(AActor* overlappedActor, AActor* otherActor)
 
 	if (inventory)
 	{
-		if (inventory->AddItem(itemClass))
+		if (inventory->AddItem(myItem))
 		{
 			Destroy();
 		}

@@ -27,6 +27,7 @@ protected:
 
 	FIntPoint GetTileFromIndex(int index);
 	int GetIndexFromTile(FIntPoint tile);
+	void FinalizeItem(UItemObject* addingItem, int addIndex);
 
 	UItemObject* GetItemAtIndex(int index);
 

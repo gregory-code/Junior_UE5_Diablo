@@ -20,7 +20,8 @@ void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+	Items.SetNum((Columns * Rows), true);
+
 }
 
 FIntPoint UInventoryComponent::GetTileFromIndex(int index)
@@ -36,6 +37,23 @@ int UInventoryComponent::GetIndexFromTile(FIntPoint tile)
 {
 	int index = tile.X + (tile.Y * Columns);
 	return index;
+}
+
+void UInventoryComponent::FinalizeItem(UItemObject* addingItem, int addIndex)
+{
+	FIntPoint tile = GetTileFromIndex(addIndex);
+
+	int dimensionsX = tile.X + (addingItem->GetSize().X - 1);
+	int dimensionsY = tile.Y + (addingItem->GetSize().Y - 1);
+
+	for (int i = tile.X; i < dimensionsX; i++)
+	{
+		for (int j = tile.Y; j < dimensionsY; j++)
+		{
+			FIntPoint newTile = FIntPoint(i, j);
+			Items[GetIndexFromTile(newTile)] = addingItem;
+		}
+	}
 }
 
 UItemObject* UInventoryComponent::GetItemAtIndex(int index)
@@ -115,7 +133,11 @@ bool UInventoryComponent::AddItem(UItemObject* itemToAdd)
 
 	for (int i = 0; i < Items.Num(); i++)
 	{
-		return bIsSlotAvailable(itemToAdd, i);
+		if (bIsSlotAvailable(itemToAdd, i))
+		{
+			FinalizeItem(itemToAdd, i);
+			return true;
+		}
 	}
 
 	return false;
