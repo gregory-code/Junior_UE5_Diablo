@@ -50,5 +50,6 @@ public:
 	float GetColumns() const;
 	float GetRows() const;
 	float GetTileSize() const;
+	TArray<UItemObject*> GetItems();
 	bool bIsSlotAvailable(UItemObject* itemToAdd, int addIndex);
 };

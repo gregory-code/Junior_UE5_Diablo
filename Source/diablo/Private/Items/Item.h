@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Items/ItemObject.h"
 #include "Item.generated.h"
 
-class UItemObject;
+
 
 UCLASS()
 class AItem : public AActor
@@ -33,6 +34,18 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "Item Detail")
 	UItemObject* myItem;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Item Details")
+	int sizeX;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Item Details")
+	int sizeY;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Item Details")
+	UMaterialInterface* icon;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Item Details")
+	UMaterialInterface* iconRotated;
 
 	UFUNCTION()
 	virtual void CreateDefaultItemObject();

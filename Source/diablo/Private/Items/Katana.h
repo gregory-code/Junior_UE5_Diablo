@@ -14,7 +14,9 @@ class AKatana : public AItem
 {
 	GENERATED_BODY()
 	
-public:
+protected:
+	virtual void BeginPlay() override;
 
+public:
 	virtual void CreateDefaultItemObject() override;
 };

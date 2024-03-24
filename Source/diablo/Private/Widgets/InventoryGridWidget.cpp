@@ -7,6 +7,7 @@
 #include "InventoryComponent.h"
 #include "PlayerCharacter.h"
 #include "Engine/Canvas.h"
+#include "Components/CanvasPanel.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -66,4 +67,9 @@ int32 UInventoryGridWidget::NativePaint(const FPaintArgs& Args, const FGeometry&
 	}
 
 	return 0;
+}
+
+void UInventoryGridWidget::RefreshBoard()
+{
+	GridCanvasPanel->ClearChildren();
 }

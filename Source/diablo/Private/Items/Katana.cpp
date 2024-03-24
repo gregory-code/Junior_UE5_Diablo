@@ -2,9 +2,15 @@
 
 
 #include "Items/Katana.h"
-#include "KatanaObject.generated.h"
+
+void AKatana::BeginPlay()
+{
+	Super::BeginPlay();
+
+	CreateDefaultItemObject();
+}
 
 void AKatana::CreateDefaultItemObject()
 {
-	//myItem = NewObject<UItemObject>();
+	Super::CreateDefaultItemObject();
 }

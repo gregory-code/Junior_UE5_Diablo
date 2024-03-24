@@ -9,15 +9,21 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class UItemObject : public UObject
 {
 	GENERATED_BODY()
 	
 private:
 
-	UPROPERTY(EditDefaultsOnly, Category = "Item Details")
+	UPROPERTY(VisibleAnywhere, Category = "Item Details")
 	FIntPoint ItemSize;
+
+	UPROPERTY(VisibleAnywhere, Category = "Item Details")
+	UMaterialInterface* itemIcon;
+
+	UPROPERTY(VisibleAnywhere, Category = "Item Details")
+	UMaterialInterface* itemIconRotated;
 
 public:
 
@@ -26,4 +32,13 @@ public:
 
 	UFUNCTION()
 	void SetSize(int x, int y);
+
+	UFUNCTION()
+	void SetIcon(UMaterialInterface* newIcon);
+
+	UFUNCTION()
+	void SetIconRotated(UMaterialInterface* newIcon);
+
+	UPROPERTY(VisibleAnywhere, Category = "Item Details")
+	bool bRotated;
 };

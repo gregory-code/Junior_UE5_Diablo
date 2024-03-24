@@ -88,6 +88,23 @@ float UInventoryComponent::GetTileSize() const
 	return TileSize;
 }
 
+TArray<UItemObject*> UInventoryComponent::GetItems()
+{
+	TArray<UItemObject*> activeItems;
+	for (int i = 0; i < Items.Num(); i++)
+	{
+		if (Items[i])
+		{
+			if (activeItems.Contains(Items[i]) == false)
+			{
+				//GetTileFromIndex(i); // I guess this is a map and this is the key? I thought it was an array
+				activeItems.Add(Items[i]);
+			}
+		}
+	}
+	return activeItems;
+}
+
 bool UInventoryComponent::bIsSlotAvailable(UItemObject* itemToAdd, int addIndex) // starts as the top left
 {
 	FIntPoint tile = GetTileFromIndex(addIndex);
