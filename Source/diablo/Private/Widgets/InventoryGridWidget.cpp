@@ -31,9 +31,6 @@ void UInventoryGridWidget::NativeConstruct()
 	{
 		GridBorderSlot->SetSize(FVector2D(InventoryComp->GetColumns() * InventoryComp->GetTileSize(), InventoryComp->GetRows() * InventoryComp->GetTileSize()));
 	}
-
-	if (InventoryComp == nullptr)
-		return;
 }
 
 void UInventoryGridWidget::CreateLine(FSlateWindowElementList& OutDrawElements, int32 LayerId, FPaintGeometry geo, FVector2D Start, FVector2D End) const
@@ -43,37 +40,11 @@ void UInventoryGridWidget::CreateLine(FSlateWindowElementList& OutDrawElements, 
 	//EndLines.Add(End);
 }
 
-void UInventoryGridWidget::Rescale()
+int32 UInventoryGridWidget::NativePaint(const FPaintArgs& Args, const FGeometry& AllottedGeometry, const FSlateRect& MyCullingRect, FSlateWindowElementList& OutDrawElements, int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled) const
 {
-	GridCanvasPanel->ClearChildren();
 	int columns = InventoryComp->GetColumns();
 	int rows = InventoryComp->GetRows();
 	int tileSize = InventoryComp->GetTileSize();
-
-	int FullWidth = columns * tileSize;
-	int FullHeight = rows * tileSize;
-
-	UCanvasPanelSlot* PanelSlot = Cast<UCanvasPanelSlot>(Slot);
-
-	FVector2D NewSize = FVector2D{ (float)FullWidth, (float)FullHeight };
-
-	PanelSlot->SetSize(NewSize);
-	PanelSlot->SetAnchors(FAnchors(1, 0.5, 1, 0.5));
-	PanelSlot->SetAlignment(FVector2D(2, 0.5));
-	UE_LOG(LogTemp, Warning, TEXT("setting size to: %s"), *NewSize.ToString());
-}
-
-int32 UInventoryGridWidget::NativePaint(const FPaintArgs& Args, const FGeometry& AllottedGeometry, const FSlateRect& MyCullingRect, FSlateWindowElementList& OutDrawElements, int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled) const
-{
-
-	if (InventoryComp == nullptr)
-		return 0;
-
-	int columns = InventoryComp->GetColumns();
-	int rows = InventoryComp->GetRows();
-	float tileSize = InventoryComp->GetTileSize();
-
-	//UWidgetBlueprintLibrary::get    get the scale and multiply it by the tile size
 
 	FPaintGeometry geo;
 	geo.DrawPosition = AllottedGeometry.AbsolutePosition;
@@ -95,11 +66,10 @@ int32 UInventoryGridWidget::NativePaint(const FPaintArgs& Args, const FGeometry&
 		CreateLine(OutDrawElements, LayerId, geo, Start, End);
 	}
 
-
 	return 0;
 }
 
 void UInventoryGridWidget::RefreshBoard()
 {
-
+	GridCanvasPanel->ClearChildren();
 }

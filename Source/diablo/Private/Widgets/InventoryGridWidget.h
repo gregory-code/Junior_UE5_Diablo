@@ -20,7 +20,7 @@ public:
 	virtual void NativeConstruct() override;
 
 	void CreateLine(FSlateWindowElementList& OutDrawElements, int32 LayerId, FPaintGeometry geo, FVector2D Start, FVector2D End) const;
-	void Rescale();
+
 private:
 	virtual int32 NativePaint(const FPaintArgs& Args, const FGeometry& AllottedGeometry, const FSlateRect& MyCullingRect, 
 		FSlateWindowElementList& OutDrawElements, int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled) const override;
