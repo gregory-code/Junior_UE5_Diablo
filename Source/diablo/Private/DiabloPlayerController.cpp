@@ -80,7 +80,6 @@ void ADiabloPlayerController::ToggleInventory(bool state)
 	if (state)
 	{
 		InventoryUI->AddToViewport();
-		InventoryUI->Rescale();
 	}
 	else
 	{

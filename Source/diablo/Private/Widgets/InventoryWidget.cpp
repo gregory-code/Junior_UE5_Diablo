@@ -10,8 +10,3 @@ void UInventoryWidget::NativeConstruct()
 
 
 }
-
-void UInventoryWidget::Rescale()
-{
-	WBP_InventoryGrid->Rescale();
-}
