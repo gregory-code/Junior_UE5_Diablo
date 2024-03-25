@@ -17,7 +17,7 @@ class UInventoryWidget : public UUserWidget
 public:
 	// Begin play
 	virtual void NativeConstruct() override;
-
+	void Rescale();
 private:
 
 	UPROPERTY(meta = (BindWidget))
