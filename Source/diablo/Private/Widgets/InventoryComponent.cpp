@@ -2,6 +2,8 @@
 
 
 #include "Widgets/InventoryComponent.h"
+#include "Engine/GameViewportClient.h"
+#include "Engine/Engine.h"
 #include "Items/ItemObject.h"
 
 
@@ -71,6 +73,19 @@ void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	UGameViewportClient* ViewportClient = GEngine->GameViewport;
+
+	if (ViewportClient)
+	{
+		FVector2D ViewportSize;
+		ViewportClient->GetViewportSize(ViewportSize);
+
+		UE_LOG(LogTemp, Log, TEXT("Screen Resolution: %dx%d"), (int32)ViewportSize.X, (int32)ViewportSize.Y);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Viewport client is invalid!"));
+	}
 }
 
 float UInventoryComponent::GetColumns() const

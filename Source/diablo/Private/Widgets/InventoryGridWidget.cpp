@@ -42,8 +42,11 @@ void UInventoryGridWidget::CreateLine(FSlateWindowElementList& OutDrawElements, 
 
 int32 UInventoryGridWidget::NativePaint(const FPaintArgs& Args, const FGeometry& AllottedGeometry, const FSlateRect& MyCullingRect, FSlateWindowElementList& OutDrawElements, int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled) const
 {
-	int columns = InventoryComp->GetColumns();
+	if (InventoryComp == nullptr)
+		return 0;
+
 	int rows = InventoryComp->GetRows();
+	int columns = InventoryComp->GetColumns();
 	int tileSize = InventoryComp->GetTileSize();
 
 	FPaintGeometry geo;
