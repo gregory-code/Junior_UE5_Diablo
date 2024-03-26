@@ -8,6 +8,7 @@
 #include "PlayerCharacter.h"
 #include "Engine/Canvas.h"
 #include "Components/CanvasPanel.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -48,6 +49,8 @@ int32 UInventoryGridWidget::NativePaint(const FPaintArgs& Args, const FGeometry&
 	int rows = InventoryComp->GetRows();
 	int columns = InventoryComp->GetColumns();
 	int tileSize = InventoryComp->GetTileSize();
+
+	tileSize *= UWidgetLayoutLibrary::GetViewportScale(this);
 
 	FPaintGeometry geo;
 	geo.DrawPosition = AllottedGeometry.AbsolutePosition;
