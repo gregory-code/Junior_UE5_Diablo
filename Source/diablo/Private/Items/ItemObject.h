@@ -37,8 +37,17 @@ public:
 	void SetIcon(UMaterialInterface* newIcon);
 
 	UFUNCTION()
+	UMaterialInterface* GetIcon();
+
+	UFUNCTION()
 	void SetIconRotated(UMaterialInterface* newIcon);
+
+	UFUNCTION()
+	UMaterialInterface* GetRotatedIcon();
 
 	UPROPERTY(VisibleAnywhere, Category = "Item Details")
 	bool bRotated;
+
+	UPROPERTY(VisibleAnywhere, Category = "Item Details")
+	FIntPoint currentTile;
 };

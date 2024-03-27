@@ -42,4 +42,10 @@ private:
 
 	UPROPERTY()
 	TArray<FVector2D> EndLines;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<class UItem_Widget> ItemWidgetClass;
+
+	UPROPERTY()
+	TArray<class UItem_Widget*> Item_Widgets;
 };

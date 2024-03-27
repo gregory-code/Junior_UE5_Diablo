@@ -9,6 +9,9 @@
 #include "Engine/Canvas.h"
 #include "Components/CanvasPanel.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
+#include "Widgets/Item_Widget.h"
+#include "Containers/Map.h"
+#include "Items/ItemObject.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -77,5 +80,29 @@ int32 UInventoryGridWidget::NativePaint(const FPaintArgs& Args, const FGeometry&
 
 void UInventoryGridWidget::RefreshBoard()
 {
+	for (UItem_Widget* itemWid : Item_Widgets)
+	{
+		itemWid->RemoveFromParent();
+	}
+	Item_Widgets.Empty();
 	GridCanvasPanel->ClearChildren();
+
+	int tileSize = InventoryComp->GetTileSize();
+
+	TArray<UItemObject*> items;
+	for (int i = 0; i < items.Num(); i++)
+	{
+		Item_Widgets.Add(CreateWidget<UItem_Widget>(this, ItemWidgetClass));
+		if (Item_Widgets[i])
+		{
+			GridCanvasPanel->AddChild(Item_Widgets[i]);
+			UCanvasPanelSlot* itemPanel = Cast<UCanvasPanelSlot>(Item_Widgets[i]->Slot);
+			itemPanel->SetAutoSize(true);
+			FVector2D pos = FVector2D((items[i]->currentTile.X * tileSize), (items[i]->currentTile.Y * tileSize));
+			itemPanel->SetPosition(pos);
+
+			Item_Widgets[i]->Refresh(items[i], tileSize);
+			// Bind this to an event where it gets removed -> Add a delegate
+		}
+	}
 }

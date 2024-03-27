@@ -47,9 +47,10 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	TArray<UItemObject*> GetItems();
 	float GetColumns() const;
 	float GetRows() const;
 	float GetTileSize() const;
-	TArray<UItemObject*> GetItems();
 	bool bIsSlotAvailable(UItemObject* itemToAdd, int addIndex);
+	void RemoveItem(UItemObject* itemToRemove);
 };

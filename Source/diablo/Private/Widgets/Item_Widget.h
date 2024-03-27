@@ -6,6 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "Item_Widget.generated.h"
 
+class UItemObject;
+
 /**
  * 
  */
@@ -18,7 +20,20 @@ public:
 	// Begin play
 	virtual void NativeConstruct() override;
 
+	void Refresh(UItemObject* MyItem, int tileSize);
+
 private:
+	UPROPERTY(meta = (BindWidget))
+	class USizeBox* BackgroundSizeBox;
 
+	UPROPERTY(meta = (BindWidget))
+	class UBorder* BackgroundBorder;
 
+	UPROPERTY(meta = (BindWidget))
+	class UImage* ItemImage;
+
+	UPROPERTY()
+	UItemObject* item;
+
+	FVector2D Size;
 };

@@ -110,9 +110,10 @@ TArray<UItemObject*> UInventoryComponent::GetItems()
 	{
 		if (Items[i])
 		{
+			Items[i]->currentTile = GetTileFromIndex(i);
+
 			if (activeItems.Contains(Items[i]) == false)
 			{
-				//GetTileFromIndex(i); // I guess this is a map and this is the key? I thought it was an array
 				activeItems.Add(Items[i]);
 			}
 		}
@@ -154,6 +155,11 @@ bool UInventoryComponent::bIsSlotAvailable(UItemObject* itemToAdd, int addIndex)
 	}
 
 	return true;
+}
+
+void UInventoryComponent::RemoveItem(UItemObject* itemToRemove)
+{
+
 }
 
 bool UInventoryComponent::AddItem(UItemObject* itemToAdd)
