@@ -27,6 +27,7 @@ void UInventoryGridWidget::NativeConstruct()
 
 	if (InventoryComp)
 	{
+		InventoryComp->SetInventoryGrid(this);
 		UE_LOG(LogTemp, Error, TEXT("Got inventory"), *GetName());
 	}
 
@@ -80,6 +81,15 @@ int32 UInventoryGridWidget::NativePaint(const FPaintArgs& Args, const FGeometry&
 
 void UInventoryGridWidget::RefreshBoard()
 {
+	UE_LOG(LogTemp, Error, TEXT("Refreshing"));
+
+
+
+	if (Item_Widgets.Num() <= 0)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Oh Damn there's nothing here"));
+		return;
+	}
 	for (UItem_Widget* itemWid : Item_Widgets)
 	{
 		itemWid->RemoveFromParent();
@@ -95,6 +105,7 @@ void UInventoryGridWidget::RefreshBoard()
 		Item_Widgets.Add(CreateWidget<UItem_Widget>(this, ItemWidgetClass));
 		if (Item_Widgets[i])
 		{
+			UE_LOG(LogTemp, Error, TEXT("We got an item here"));
 			GridCanvasPanel->AddChild(Item_Widgets[i]);
 			UCanvasPanelSlot* itemPanel = Cast<UCanvasPanelSlot>(Item_Widgets[i]->Slot);
 			itemPanel->SetAutoSize(true);

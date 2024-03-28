@@ -7,6 +7,7 @@
 #include "InventoryComponent.generated.h"
 
 class UItemObject;
+class UInventoryGridWidget;
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -43,11 +44,14 @@ protected:
 	UPROPERTY()
 	TArray<UItemObject*> Items;
 
+	UInventoryGridWidget* InventoryGrid;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	TArray<UItemObject*> GetItems();
+	void SetInventoryGrid(UInventoryGridWidget* newGrid);
 	float GetColumns() const;
 	float GetRows() const;
 	float GetTileSize() const;

@@ -4,6 +4,8 @@
 #include "Widgets/InventoryComponent.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/Engine.h"
+#include "InventoryGridWidget.h"
+#include "Widgets/InventoryGridWidget.h"
 #include "Items/ItemObject.h"
 
 
@@ -23,7 +25,6 @@ void UInventoryComponent::BeginPlay()
 	Super::BeginPlay();
 
 	Items.SetNum((Columns * Rows), true);
-
 }
 
 FIntPoint UInventoryComponent::GetTileFromIndex(int index)
@@ -121,6 +122,11 @@ TArray<UItemObject*> UInventoryComponent::GetItems()
 	return activeItems;
 }
 
+void UInventoryComponent::SetInventoryGrid(UInventoryGridWidget* newGrid)
+{
+	InventoryGrid = newGrid;
+}
+
 bool UInventoryComponent::bIsSlotAvailable(UItemObject* itemToAdd, int addIndex) // starts as the top left
 {
 	FIntPoint tile = GetTileFromIndex(addIndex);
@@ -174,6 +180,7 @@ bool UInventoryComponent::AddItem(UItemObject* itemToAdd)
 		if (bIsSlotAvailable(itemToAdd, i))
 		{
 			FinalizeItem(itemToAdd, i);
+			InventoryGrid->RefreshBoard();
 			return true;
 		}
 	}

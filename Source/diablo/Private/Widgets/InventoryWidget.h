@@ -20,6 +20,6 @@ public:
 
 private:
 
-	UPROPERTY(meta = (BindWidget))
-	class UInventoryGridWidget* WBP_InventoryGrid;
+	//UPROPERTY(meta = (BindWidget))
+	//class UInventoryGridWidget* WBP_InventoryGrid;
 };
